@@ -8,9 +8,12 @@ streamlit = "*"
 spacy = "*"
 spacy-streamlit = "*"
 st-annotated-text = "*"
+en-core-web-trf = {file = "https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.0.0/en_core_web_trf-3.0.0.tar.gz"}
+fr-dep-news-trf = {file = "https://github.com/explosion/spacy-models/releases/download/fr_dep_news_trf-3.0.0/fr_dep_news_trf-3.0.0.tar.gz"}
+pt-core-news-lg = {file = "https://github.com/explosion/spacy-models/releases/download/pt_core_news_lg-3.0.0/pt_core_news_lg-3.0.0.tar.gz"}
 
 [dev-packages]
 black = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.8"
