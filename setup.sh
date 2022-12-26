@@ -1,9 +1,10 @@
-
 mkdir -p ~/.streamlit/
 
+cd .streamlit
 python -m spacy download fr_dep_news_trf
 python -m spacy download en_core_web_trf
 python -m spacy download pt_core_news_lg
+cd ..
 
 echo "\
 [server]\n\
