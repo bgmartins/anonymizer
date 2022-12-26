@@ -2,7 +2,6 @@ import streamlit as st
 import spacy
 from annotated_text import annotated_text
 
-
 @st.cache(show_spinner=False, allow_output_mutation=True, suppress_st_warning=True)
 def load_models():
     french_model = spacy.load("fr_dep_news_trf")
