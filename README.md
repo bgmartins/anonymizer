@@ -4,7 +4,7 @@ This repo presents a simple web app to anonymize biomedical text data with **Str
 
 The app can be deployed to Heroku and made live on internet, for other users to use and play with:
 
-Spoiler alert: here's what the app looks like
+Spoiler alert: here's what the app looks like.
 
 <img src="./images/screenshot.png">
 
