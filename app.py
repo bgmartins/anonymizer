@@ -5,11 +5,11 @@ from annotated_text import annotated_text
 
 @st.cache(show_spinner=False, allow_output_mutation=True, suppress_st_warning=True)
 def load_models():
-    french_model = spacy.load("./models/fr/")
-    english_model = spacy.load("./models/en/")
-    models = {"en": english_model, "fr": french_model}
+    french_model = spacy.load("fr_dep_news_trf")
+    english_model = spacy.load("en_core_web_trf")
+    portuguese_model = spacy.load("pt_core_news_lg")
+    models = {"en": english_model, "fr": french_model, "pt": portuguese_model}
     return models
-
 
 def process_text(doc, selected_entities, anonymize=False):
     tokens = []
@@ -22,7 +22,6 @@ def process_text(doc, selected_entities, anonymize=False):
             tokens.append((token.text, "Organization", "#afa"))
         else:
             tokens.append(" " + token.text + " ")
-
     if anonymize:
         anonmized_tokens = []
         for token in tokens:
@@ -31,13 +30,11 @@ def process_text(doc, selected_entities, anonymize=False):
             else:
                 anonmized_tokens.append(token)
         return anonmized_tokens
-
     return tokens
-
 
 models = load_models()
 
-selected_language = st.sidebar.selectbox("Select a language", options=["en", "fr"])
+selected_language = st.sidebar.selectbox("Select a language", options=["en", "fr", "pt"])
 selected_entities = st.sidebar.multiselect(
     "Select the entities you want to detect",
     options=["LOC", "PER", "ORG"],
