@@ -7,7 +7,7 @@ def load_models():
     french_model = spacy.load("fr_dep_news_trf")
     english_model = spacy.load("en_core_web_trf")
     portuguese_model = spacy.load("pt_core_news_lg")
-    models = {"en": english_model, "fr": french_model, "pt": portuguese_model}
+    models = {"pt": portuguese_model, "en": english_model, "fr": french_model }
     return models
 
 def process_text(doc, selected_entities, anonymize=False):
@@ -33,7 +33,7 @@ def process_text(doc, selected_entities, anonymize=False):
 
 models = load_models()
 
-selected_language = st.sidebar.selectbox("Select a language", options=["en", "fr", "pt"])
+selected_language = st.sidebar.selectbox("Select a language", options=["pt", "en", "fr"])
 selected_entities = st.sidebar.multiselect(
     "Select the entities you want to detect",
     options=["LOC", "PER", "ORG"],
