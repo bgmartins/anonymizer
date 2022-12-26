@@ -1,3 +1,6 @@
 streamlit
 spacy
 st-annotated-text
+https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.0.0/en_core_web_trf-3.0.0.tar.gz
+https://github.com/explosion/spacy-models/releases/download/fr_dep_news_trf-3.0.0/fr_dep_news_trf-3.0.0.tar.gz
+https://github.com/explosion/spacy-models/releases/download/pt_core_news_lg-3.0.0/pt_core_news_lg-3.0.0.tar.gz
