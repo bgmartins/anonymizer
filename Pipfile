@@ -16,4 +16,4 @@ pt-core-news-lg = {file = "https://github.com/explosion/spacy-models/releases/do
 black = "*"
 
 [requires]
-python_version = "3.9"
+python_version = "3.8"
