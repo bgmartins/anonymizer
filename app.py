@@ -7,10 +7,10 @@ def load_models():
     patterns = [
                 {
                     "label": "EMAIL", "pattern": [ {"TEXT": {"REGEX": "\b((([!#$%&'*+\-/=?^_`{|}~\w])|([!#$%&'*+\-/=?^_`{|}~\w][!#$%&'*+\-/=?^_`{|}~\.\w]{0,}[!#$%&'*+\-/=?^_`{|}~\w]))[@]\w+([-.]\w+)*\.\w+([-.]\w+)*)\b"}} ]
-                },
-                {
-                    "label": "PHONE", "pattern": [ {"TEXT": {"REGEX": "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$"}} ]
                 }
+                #{
+                #    "label": "PHONE", "pattern": [ {"TEXT": {"REGEX": "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$"}} ]
+                #}
     ]
     french_model = spacy.load("fr_dep_news_trf")
     french_model.add_pipe("entity_ruler").add_patterns(patterns)
