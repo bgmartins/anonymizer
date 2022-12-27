@@ -69,5 +69,3 @@ if anonymize:
     st.markdown("---")
     anonymized_tokens = process_text(doc, selected_entities, anonymize=anonymize)
     annotated_text(*anonymized_tokens)
-    
-if __name__ == '__main__': main()
