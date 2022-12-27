@@ -7,6 +7,9 @@ def load_models():
     patterns = [
                 {
                     "label": "EMAIL", "pattern": [ {"TEXT": {"REGEX": "\b((([!#$%&'*+\-/=?^_`{|}~\w])|([!#$%&'*+\-/=?^_`{|}~\w][!#$%&'*+\-/=?^_`{|}~\.\w]{0,}[!#$%&'*+\-/=?^_`{|}~\w]))[@]\w+([-.]\w+)*\.\w+([-.]\w+)*)\b"}} ]
+                },
+                {
+                    "label": "PHONE", "pattern": [ {"TEXT": {"REGEX": "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$"}} ]
                 }
     ]
     french_model = spacy.load("fr_dep_news_trf")
@@ -29,6 +32,8 @@ def process_text(doc, selected_entities, anonymize=False):
             tokens.append((token.text, "Organization", "#afa"))
         elif (token.ent_type_ == "EMAIL") & ("EMAIL" in selected_entities):
             tokens.append((token.text, "Email", "#aaf"))
+        elif (token.ent_type_ == "PHONE") & ("PHONE" in selected_entities):
+            tokens.append((token.text, "Phone", "#faf"))
         else:
             tokens.append(" " + token.text + " ")
     if anonymize:
@@ -46,8 +51,8 @@ models = load_models()
 selected_language = st.sidebar.selectbox("Select a language", options=["pt", "en", "fr"])
 selected_entities = st.sidebar.multiselect(
     "Select the entities you want to detect",
-    options=["LOC", "PER", "ORG", "EMAIL"],
-    default=["LOC", "PER", "ORG", "EMAIL"],
+    options=["LOC", "PER", "ORG", "EMAIL", "PHONE"],
+    default=["LOC", "PER", "ORG", "EMAIL", "PHONE"],
 )
 selected_model = models[selected_language]
 
