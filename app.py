@@ -4,9 +4,17 @@ from annotated_text import annotated_text
 
 @st.cache(show_spinner=False, allow_output_mutation=True, suppress_st_warning=True)
 def load_models():
+    patterns = [
+                {
+                    "label": "EMAIL", "pattern": [ {"TEXT": {"REGEX": "\b((([!#$%&'*+\-/=?^_`{|}~\w])|([!#$%&'*+\-/=?^_`{|}~\w][!#$%&'*+\-/=?^_`{|}~\.\w]{0,}[!#$%&'*+\-/=?^_`{|}~\w]))[@]\w+([-.]\w+)*\.\w+([-.]\w+)*)\b"}} ]
+                }
+    ]
     french_model = spacy.load("fr_dep_news_trf")
+    french_model.add_pipe("entity_ruler").add_patterns(patterns)
     english_model = spacy.load("en_core_web_trf")
+    english_model.add_pipe("entity_ruler").add_patterns(patterns)
     portuguese_model = spacy.load("pt_core_news_lg")
+    portuguese_model.add_pipe("entity_ruler").add_patterns(patterns)	
     models = {"pt": portuguese_model, "en": english_model, "fr": french_model }
     return models
 
@@ -61,3 +69,5 @@ if anonymize:
     st.markdown("---")
     anonymized_tokens = process_text(doc, selected_entities, anonymize=anonymize)
     annotated_text(*anonymized_tokens)
+    
+if __name__ == '__main__': main()
