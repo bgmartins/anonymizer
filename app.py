@@ -7,18 +7,14 @@ def load_models():
     patterns = [
                 {
                     "label": "EMAIL", "pattern": [ {"TEXT": {"REGEX": "\b((([!#$%&'*+\-/=?^_`{|}~\w])|([!#$%&'*+\-/=?^_`{|}~\w][!#$%&'*+\-/=?^_`{|}~\.\w]{0,}[!#$%&'*+\-/=?^_`{|}~\w]))[@]\w+([-.]\w+)*\.\w+([-.]\w+)*)\b"}} ]
+                },
+                {
+                    "label": "PHONE", "pattern": [ {"TEXT": {"REGEX": "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$"}} ]
                 }
-                #{
-                #    "label": "PHONE", "pattern": [ {"TEXT": {"REGEX": "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$"}} ]
-                #}
     ]
-    french_model = spacy.load("fr_dep_news_trf")
-    french_model.add_pipe("entity_ruler").add_patterns(patterns)
-    english_model = spacy.load("en_core_web_trf")
-    english_model.add_pipe("entity_ruler").add_patterns(patterns)
     portuguese_model = spacy.load("pt_core_news_lg")
     portuguese_model.add_pipe("entity_ruler").add_patterns(patterns)	
-    models = {"pt": portuguese_model, "en": english_model, "fr": french_model }
+    models = { "pt": portuguese_model }
     return models
 
 def process_text(doc, selected_entities, anonymize=False):
@@ -48,7 +44,7 @@ def process_text(doc, selected_entities, anonymize=False):
 
 models = load_models()
 
-selected_language = st.sidebar.selectbox("Select a language", options=["pt", "en", "fr"])
+selected_language = st.sidebar.selectbox("Select a language", options=[ "pt" ])
 selected_entities = st.sidebar.multiselect(
     "Select the entities you want to detect",
     options=["LOC", "PER", "ORG", "EMAIL", "PHONE"],
