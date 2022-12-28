@@ -6,10 +6,10 @@ from annotated_text import annotated_text
 def load_models():
     patterns = [
                 {
-                    "label": "EMAIL", "pattern": [ {"TEXT": {"REGEX": "\b((([!#$%&'*+\-/=?^_`{|}~\w])|([!#$%&'*+\-/=?^_`{|}~\w][!#$%&'*+\-/=?^_`{|}~\.\w]{0,}[!#$%&'*+\-/=?^_`{|}~\w]))[@]\w+([-.]\w+)*\.\w+([-.]\w+)*)\b"}} ]
+                    "label": "EMAIL", "pattern": [ {"TEXT": {"REGEX": "^((([!#$%&'*+\-/=?^_`{|}~\w])|([!#$%&'*+\-/=?^_`{|}~\w][!#$%&'*+\-/=?^_`{|}~\.\w]{0,}[!#$%&'*+\-/=?^_`{|}~\w]))[@]\w+([-.]\w+)*\.\w+([-.]\w+)*)$"}} ]
                 },
                 {
-                    "label": "PHONE", "pattern": [ {"TEXT": {"REGEX": "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$"}} ]
+                    "label": "PHONE", "pattern": [ {"TEXT": {"REGEX": "^((9[1-36]\s*[0-9]\s*|2[12]\s*[0-9]\s*|2[35]\s*[1-689]\s*|24[1-59]\s*|26[1-35689]\s*|27[1-9]\s*|28[1-69]\s*|29[1256])([0-9]{6}|[0-9]{3}\s*[0-9]{3}|[0-9]{1}\s*[0-9]{5}|[0-9]{2}\s*[0-9]{4}|[0-9]{4}\s*[0-9]{2}|[0-9]{5}\s*[0-9]{1}|[0-9]{2}\s*[0-9]{2}\s*[0-9]{2}))$"}} ]
                 }
     ]
     portuguese_model = spacy.load("pt_core_news_lg")
@@ -20,7 +20,7 @@ def load_models():
 def process_text(doc, selected_entities, anonymize=False):
     tokens = []
     for token in doc:
-        if (token.ent_type_ == "PERSON") & ("PER" in selected_entities):
+        if (token.ent_type_ in ["PERSON", "PER"]) & ("PER" in selected_entities):
             tokens.append((token.text, "Person", "#faa"))
         elif (token.ent_type_ in ["GPE", "LOC"]) & ("LOC" in selected_entities):
             tokens.append((token.text, "Location", "#fda"))
