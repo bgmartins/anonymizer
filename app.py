@@ -13,7 +13,7 @@ def load_models():
                 }
     ]
     portuguese_model = spacy.load("pt_core_news_lg")
-    portuguese_model.add_pipe("entity_ruler").add_patterns(patterns, config={ 'validate': True, 'overwrite_ents': True })	
+    portuguese_model.add_pipe("entity_ruler", config={ 'validate': True, 'overwrite_ents': True }).add_patterns(patterns)	
     models = { "pt": portuguese_model }
     return models
 
