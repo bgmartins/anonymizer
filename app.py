@@ -17,7 +17,7 @@ def load_models():
     models = { "pt": portuguese_model }
     return models
 
-def read_text(filename="./tests/test1.doc"):
+def read_text(filename="./tests/test1.txt"):
     f = open(filename, 'r')
     output = f.read()
     f.close()
@@ -60,7 +60,7 @@ selected_model = models[selected_language]
 
 text_input = st.text_area("Type a text to anonymize", value=read_text())
 
-uploaded_file = st.file_uploader("or Upload a file", type=["doc", "docx", "pdf", "txt"])
+uploaded_file = st.file_uploader("or Upload a file", type=[ "txt" ])
 if uploaded_file is not None:
     text_input = uploaded_file.getvalue()
     text_input = text_input.decode("utf-8")
