@@ -17,7 +17,7 @@ def load_models():
     models = { "pt": portuguese_model }
     return models
 
-def read_text(filename="./data/doc1.txt"):
+def read_text(filename="./tests/test1.doc"):
     f = open(filename, 'r')
     output = f.read()
     f.close()
