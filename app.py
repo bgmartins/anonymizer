@@ -17,6 +17,12 @@ def load_models():
     models = { "pt": portuguese_model }
     return models
 
+def read_text(filename="./data/doc1.txt"):
+    f = open(filename, 'r')
+    output = f.read()
+    f.close()
+    return output
+
 def process_text(doc, selected_entities, anonymize=False):
     tokens = []
     for token in doc:
@@ -52,7 +58,7 @@ selected_entities = st.sidebar.multiselect(
 )
 selected_model = models[selected_language]
 
-text_input = st.text_area("Type a text to anonymize")
+text_input = st.text_area("Type a text to anonymize", value=read_text())
 
 uploaded_file = st.file_uploader("or Upload a file", type=["doc", "docx", "pdf", "txt"])
 if uploaded_file is not None:
