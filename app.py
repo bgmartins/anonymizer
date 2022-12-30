@@ -4,6 +4,7 @@ import spacy
 import streamlit as st
 from tqdm import tqdm
 from annotated_text import annotated_text
+from spacy.training import Example
 
 @st.cache(show_spinner=False, allow_output_mutation=True, suppress_st_warning=True)
 def load_models():
@@ -28,7 +29,9 @@ def load_models():
         for itn in range(5):
             random.shuffle(train_data)
             losses = { }
-            for text, annotations in tqdm(train_data): portuguese_model.update( [text], [annotations], drop=0.5,  sgd=optimizer, losses=losses )        
+            for text, annotations in tqdm(train_data): 
+                example = Example.from_dict(portuguese_model.make_doc(text), annotations)
+                portuguese_model.update( [text], [annotations], drop=0.5,  sgd=optimizer, losses=losses )        
     models = { "pt": portuguese_model }
     return models
 
