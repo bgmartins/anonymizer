@@ -1,0 +1,10 @@
+[
+     [
+          "Bruno Martins vive em Lisboa e é docente no Instituto Superior Técnico.",
+          { "entities": [ [0,13,"PERSON"], [22,28,"LOC"], [44,70,"LOC"] ] }
+     ],
+     [
+          "Isabel Coutinho é estudante.",
+          { "entities": [ [0, 15, "PERSON"] ] }
+     ]
+]
