@@ -1,9 +1,12 @@
-import streamlit as st
+import random
 import spacy
+import streamlit as st
+from tqdm import tqdm
 from annotated_text import annotated_text
 
 @st.cache(show_spinner=False, allow_output_mutation=True, suppress_st_warning=True)
 def load_models():
+    train_data = [ ]
     patterns = [
                 {
                     "label": "EMAIL", "pattern": [ {"TEXT": {"REGEX": "^((([!#$%&'*+\-/=?^_`{|}~\w])|([!#$%&'*+\-/=?^_`{|}~\w][!#$%&'*+\-/=?^_`{|}~\.\w]{0,}[!#$%&'*+\-/=?^_`{|}~\w]))[@]\w+([-.]\w+)*\.\w+([-.]\w+)*)$"}} ]
@@ -13,7 +16,17 @@ def load_models():
                 }
     ]
     portuguese_model = spacy.load("pt_core_news_lg")
-    portuguese_model.add_pipe("entity_ruler", config={ 'validate': True, 'overwrite_ents': True }).add_patterns(patterns)	
+    portuguese_model.add_pipe("entity_ruler", config={ 'validate': True, 'overwrite_ents': True }).add_patterns(patterns)
+    ner = portuguese_model.get_pipe('ner')
+    for _, annotations in train_data:
+        for ent in annotations.get('entities'): ner.add_label(ent[2])
+    other_pipes = [ pipe for pipe in portuguese_model.pipe_names if pipe != 'ner' ]
+    with portuguese_model.disable_pipes(*other_pipes):
+        optimizer = portuguese_model.begin_training()
+        for itn in range(5):
+            random.shuffle(train_data)
+            losses = { }
+            for text, annotations in tqdm(train_data): portuguese_model.update( [text], [annotations], drop=0.5,  sgd=optimizer, losses=losses )        
     models = { "pt": portuguese_model }
     return models
 
