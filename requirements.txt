@@ -1,5 +1,6 @@
 streamlit==1.6
 protobuf==3.20
 spacy
+tqdm
 st-annotated-text
 https://github.com/explosion/spacy-models/releases/download/pt_core_news_lg-3.0.0/pt_core_news_lg-3.0.0.tar.gz
