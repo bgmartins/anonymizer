@@ -31,7 +31,7 @@ def load_models():
             losses = { }
             for text, annotations in tqdm(train_data): 
                 example = Example.from_dict(portuguese_model.make_doc(text), annotations)
-                portuguese_model.update( [text], [annotations], drop=0.5,  sgd=optimizer, losses=losses )        
+                portuguese_model.update( [example], drop=0.5,  sgd=optimizer, losses=losses )        
     models = { "pt": portuguese_model }
     return models
 
