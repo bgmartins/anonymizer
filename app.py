@@ -17,6 +17,7 @@ def load_models():
     ]
     portuguese_model = spacy.load("pt_core_news_lg")
     portuguese_model.add_pipe("entity_ruler", config={ 'validate': True, 'overwrite_ents': True }).add_patterns(patterns)
+    with open("./tests/training-data.json", "r") as f: train_data = json.load(f)
     ner = portuguese_model.get_pipe('ner')
     for _, annotations in train_data:
         for ent in annotations.get('entities'): ner.add_label(ent[2])
