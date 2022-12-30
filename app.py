@@ -22,7 +22,7 @@ def load_models():
         for ent in annotations.get('entities'): ner.add_label(ent[2])
     other_pipes = [ pipe for pipe in portuguese_model.pipe_names if pipe != 'ner' ]
     with portuguese_model.disable_pipes(*other_pipes):
-        optimizer = portuguese_model.begin_training()
+        optimizer = portuguese_model.create_optimizer()
         for itn in range(5):
             random.shuffle(train_data)
             losses = { }
